@@ -1,19 +1,38 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: Object
 metadata:
-  name: myapp
+  name: wacamole-hello-deployment
 spec:
-  selector:
-    matchLabels:
-      app: myapp
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: myapp
-    spec:
-      containers:
-      - name: myapp
-        image: nanajanashia/argocd-app:1.2
-        ports:
-        - containerPort: 8080
+  forProvider:
+    manifest:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: wacamole-hello
+        namespace: myapp
+        labels:
+          app: wacamole-hello
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: wacamole-hello
+        template:
+          metadata:
+            labels:
+              app: wacamole-hello
+          spec:
+            containers:
+            - name: wacamole-hello
+              image: javpaw/wacamole-hello:latest
+              ports:
+              - containerPort: 8000
+              resources:
+                requests:
+                  memory: "64Mi"
+                  cpu: "250m"
+                limits:
+                  memory: "128Mi"
+                  cpu: "500m"
+  providerConfigRef:
+    name: kubernetes-provider
