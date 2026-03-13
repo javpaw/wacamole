@@ -9,7 +9,7 @@ spec:
       kind: ConfigMap
       metadata:
         name: crossplane-managed-config
-        namespace: default
+        namespace: myapp
       data:
         app_name: "wacamole-app"
         environment: "development"
