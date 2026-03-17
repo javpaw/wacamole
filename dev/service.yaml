@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: myapp-service
+  name: wacamole-hello
+  namespace: myapp
 spec:
   selector:
-    app: myapp
+    app: wacamole-hello
   ports:
-  - port: 8080
-    protocol: TCP
-    targetPort: 8080
-  
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+  type: ClusterIP
